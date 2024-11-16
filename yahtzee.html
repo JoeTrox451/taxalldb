@@ -1,0 +1,117 @@
+<html>
+<head>
+    <style>
+        .die_con{
+            width: 600;
+            display:flex;
+            justify-content: center;
+        }
+        .die_num{
+            width: 100; 
+            text-align: center; 
+            display: inline-block;
+        }
+        .score_con{
+            width: 600;
+            height: 200;
+            padding-top: 40;
+        }
+        .score_side{
+            width: 600;
+            height: 100;
+            display:flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .score_button{
+            display: inline-block;
+            width: 60;
+            height: 40;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        class Die {
+            constructor(label) {
+                this.held = false;
+                this.sides = 6;
+                this.result = 1;
+                this.label = label;
+            }
+            roll(){
+                this.result = (Math.floor(Math.random()*6)+1)
+            }
+            reset(){
+                this.roll();
+                this.held = false;
+            }
+        }
+        const die1 = Die("Die_1");
+        const die2 = Die("Die_2");
+        const die3 = Die("Die_3");
+        const die4 = Die("Die_4");
+        const die5 = Die("Die_5");
+        const Dice = [die1, die2, die3, die4, die5];
+        const score_list = ["One", "Two", "Three", "Four", "Five", "Six", "3_Kind", "4_Kind", "Full_House", "SM_Str", "LG_Str", "Chance", "Yahtzee"];
+        var score = 0;
+        var upper = 0;
+        var lower = 0;
+        var yahtzee_num = 0;
+
+
+
+
+        function diehold() {
+            document.getElementById("held1").innerHTML = "Heccccld";
+        }
+    </script>
+    <div class="score_con">
+        <div class="score_side"> 
+            <button id="One" class="score_button" onclick='score_dice("One")' disabled>One</button>
+            <button id="Two" class="score_button" onclick='score_dice("Two")' disabled>Two</button>
+            <button id="Three" class="score_button" onclick='score_dice("Three")' disabled>Three</button>
+            <button id="Four" class="score_button" onclick='score_dice("Four")' disabled>Four</button>
+            <button id="Five" class="score_button" onclick='score_dice("Five")' disabled>Five</button>
+            <button id="Six" class="score_button" onclick='score_dice("Six")' disabled>Six</button>
+        </div>
+        <div class="score_side">
+            <button id="3_Kind" class="score_button" onclick='score_dice("3_Kind")' disabled>3 of a Kind</button>
+            <button id="4_Kind" class="score_button" onclick='score_dice("4_Kind")' disabled>4 of a Kind</button>
+            <button id="Full_House" class="score_button" onclick='score_dice("Full_House")' disabled>Full House</button>
+            <button id="SM_Str" class="score_button" onclick='score_dice("SM_Str")' disabled>SM Str</button>
+            <button id="LG_Str" class="score_button" onclick='score_dice("LG_Str")' disabled>LG Str</button>
+            <button id="Chance" class="score_button" onclick='score_dice("Chance")' disabled>Chance</button>
+            <button id="Yahtzee" class="score_button" onclick='score_dice("Yahtzee")' disabled>Yahtzee</button>
+        </div>
+    </div>
+    <div class="die_con">
+        <div class="die_num">
+            <h2 id="die_num_1">1</h2>
+            <button onclick="diehold()">Hold</button>
+            <p id="held1">-</p>
+        </div>
+        <div class="die_num">
+            <h2 id="die_num_2">2</h2>
+            <button>Hold</button>
+            <p id="held2">Held</p>
+        </div>
+        <div class="die_num">
+            <h2 id="die_num_3">3</h2>
+            <button>Hold</button>
+            <p id="held3">Held</p>
+        </div>
+        <div class="die_num">
+            <h2 id="die_num_4">4</h2>
+            <button>Hold</button>
+            <p id="held4">Held</p>
+        </div>
+        <div class="die_num">
+            <h2 id="die_num_5">5</h2>
+            <button>Hold</button>
+            <p id="held5">Held</p>
+        </div>
+    </div>
+</body>
+</html>
