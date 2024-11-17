@@ -88,6 +88,7 @@
             margin-bottom: 20;
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="body">
     <script>
@@ -273,9 +274,8 @@
 
             for (let s of score_list)
                 document.getElementById(s).disabled = true;
-            for (let h of ["hold1","hold2","hold3","hold4","hold5"]){
-                    h.disabled = false;
-            }
+            for (let h of ["hold1","hold2","hold3","hold4","hold5"])
+                document.getElementById(h).disabled = true;
             document.getElementById("roll_butt").disabled = false;
             document.getElementById("roll_butt").innerHTML = "Roll"
             score_list.splice(score_list.indexOf(cat),1);
@@ -334,7 +334,7 @@
                 <p id="Six_score" class="cat_num">0</p>
             </div>
         </div>
-        <span id="endgame" style="position: absolute; margin-top: -30; margin-left: 60; color:gold; font-weight: bold; font-size: large;"></span>
+        <span id="endgame" style="position: absolute; margin-top: -30; margin-left: 60; color:gold; font-weight: bold; font-size: 18; width:480;"></span>
         <div class="score_side">
             <div class="score_div">
                 <button id="3_Kind" class="score_button" onclick='score_dice("3_Kind")' disabled>3 of a Kind</button>
