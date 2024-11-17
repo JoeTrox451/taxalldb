@@ -6,9 +6,8 @@
             display:flex;
             flex-direction: column;
             align-items: center;
-            padding-right: 20;
-            padding-bottom: 20;
-            padding-left: 20;
+            padding:20;
+            border-radius: 10px;
             background-color: rgb(104, 15, 15);
             margin:auto;
         }
@@ -19,17 +18,21 @@
             width:500; 
             height:125; 
             padding-left: 20; 
+            padding-bottom: 10;
             filter:brightness(0.85)
         }
         .die_con{
             width: 600;
             display:flex;
+            padding-bottom: 20;
             justify-content: center;
             background-color: rgb(175, 0, 0);
         }
         .die_num{
             border-color: black;
             border-style: solid;
+            border-radius: 10px;
+            padding:5px;
             background-color: antiquewhite; 
             width: 100; 
             height: 100;
@@ -39,6 +42,7 @@
         .score_num{
             width: 600;
             height: 40;
+            border-radius: 10px 10px 0px 0px;
             justify-content: center;
             display: flex;
             background-color: gold;
@@ -69,11 +73,19 @@
             color:gold;
             margin:10;
         }
+        .hold_butt{
+            padding-top: 3;
+            padding-left: 12;
+            padding-bottom: 3;
+            padding-right: 12;
+        }
         .roll_button{
             width: 500;
             height: 40;
+            border-radius: 5px;
             margin-left: 50;
             font-size: large;
+            margin-bottom: 20;
         }
     </style>
 </head>
@@ -249,13 +261,13 @@
             if (upper >= 63){
                 bonus += 35;
                 score += 35;
+            } else {
+                bonus += 0
             }
             if (yahtzee_num > 1){
                 bonus += " | " + ((yahtzee_num-1)*100);
                 score += (yahtzee_num-1)*100;
             }
-            if (upper < 63 && yahtzee_num < 2)
-                bonus += 0;
             document.getElementById("bonus").innerHTML = bonus;
             document.getElementById("total").innerHTML = "Total: " + score;
 
@@ -270,7 +282,7 @@
             rolls = 0;
             if (score_list.length == 0){
                 document.getElementById("roll_butt").disabled = true;
-                alert("Game over! Thanks for playing! Refresh to start a new game.")
+                document.getElementById("endgame").innerHTML = "Game Over - Thanks for playing! Refresh to start a new game."
             }
                 
         }
@@ -322,6 +334,7 @@
                 <p id="Six_score" class="cat_num">0</p>
             </div>
         </div>
+        <span id="endgame" style="position: absolute; margin-top: -30; margin-left: 60; color:gold; font-weight: bold; font-size: large;"></span>
         <div class="score_side">
             <div class="score_div">
                 <button id="3_Kind" class="score_button" onclick='score_dice("3_Kind")' disabled>3 of a Kind</button>
@@ -356,26 +369,26 @@
     <div class="die_con">
         <div class="die_num" id="die_box_1">
             <h2 id="die_num_1">1</h2>
-            <button id="hold1" onclick="diehold('die_box_1')" disabled>Hold</button>
+            <button id="hold1" onclick="diehold('die_box_1')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_2">
             <h2 id="die_num_2">1</h2>
-            <button id="hold2" onclick="diehold('die_box_2')" disabled>Hold</button>
+            <button id="hold2" onclick="diehold('die_box_2')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_3">
             <h2 id="die_num_3">1</h2>
-            <button id="hold3" onclick="diehold('die_box_3')" disabled>Hold</button>
+            <button id="hold3" onclick="diehold('die_box_3')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_4">
             <h2 id="die_num_4">1</h2>
-            <button id="hold4" onclick="diehold('die_box_4')" disabled>Hold</button>
+            <button id="hold4" onclick="diehold('die_box_4')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_5">
             <h2 id="die_num_5">1</h2>
-            <button id="hold5" onclick="diehold('die_box_5')" disabled>Hold</button>
+            <button id="hold5" onclick="diehold('die_box_5')" class="hold_butt" disabled>Hold</button>
         </div>
     </div>
-    <div style="background-color: rgb(175, 0, 0); width:600;">
+    <div style="background-color: rgb(175, 0, 0); width:600; border-radius: 0px 0px 10px 10px;">
         <button class="roll_button" id="roll_butt" onclick="roll()">Roll</button>
     </div>
     </div>
