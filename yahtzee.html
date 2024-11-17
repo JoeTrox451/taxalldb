@@ -89,11 +89,11 @@
             roll(){
                 this.result = (Math.floor(Math.random()*6)+1);
                 document.getElementById(this.label).innerHTML = this.result;
+                console.log(this.result)
             }
             reset(){
                 this.roll();
                 this.held = false;
-                console.log(this.label.slice(0,4)+"box"+this.label.slice(7));
                 document.getElementById(this.label.slice(0,4)+"box"+this.label.slice(7)).style["background-color"] = "antiquewhite";
             }
         }
@@ -121,6 +121,7 @@
                 }
             }
             rolls++;
+            document.getElementById("roll_butt").innerHTML = "Roll " + (rolls)
             for (let s of score_list)
                 document.getElementById(s).disabled = false;
             if (rolls >= 3){
@@ -148,46 +149,95 @@
             let subtotal = 0;
             switch(cat){
                 case "One":
-                    for (let d of Dice){
-                        if (d.result == 1)
+                    for (let i of num_list){
+                        if (i == 1)
                             subtotal += 1;
                     }
                     upper += subtotal;
                     break;
                 case "Two":
-                    for (let d of Dice){
-                        if (d.result == 2)
+                    for (let i of num_list){
+                        if (i == 2)
                             subtotal += 2;
                     }
                     upper += subtotal;
                     break;
                 case "Three":
-                    for (let d of Dice){
-                        if (d.result == 3)
+                    for (let i of num_list){
+                        if (i == 3)
                             subtotal += 3;
                     }
                     upper += subtotal;
                     break;
                 case "Four":
-                    for (let d of Dice){
-                        if (d.result == 4)
+                    for (let i of num_list){
+                        if (i == 4)
                             subtotal += 4;
                     }
                     upper += subtotal;
                     break;
                 case "Five":
-                    for (let d of Dice){
-                        if (d.result == 5)
+                    for (let i of num_list){
+                        if (i == 5)
                             subtotal += 5;
                     }
                     upper += subtotal;
                     break;
                 case "Six":
-                    for (let d of Dice){
-                        if (d.result == 6)
+                    for (let i of num_list){
+                        if (i == 6)
                             subtotal += 6;
                     }
                     upper += subtotal;
+                    break;
+                case "3_Kind":
+                    for (let value of Object.values(num_dict)){
+                        if (value >= 3){
+                            for (let i of num_list)
+                                subtotal += i;
+                            break;
+                        }
+                    }
+                    lower += subtotal;
+                    break;
+                case "4_Kind":
+                    for (let value of Object.values(num_dict)){
+                        if (value >= 4){
+                            for (let i of num_list)
+                                subtotal += i;
+                            break;
+                        }
+                    }
+                    lower += subtotal;
+                    break;
+                case "Full_House":
+                    if (Object.values(num_dict).includes(2) && Object.values(num_dict).includes(3))
+                        subtotal = 25;
+                    lower += subtotal;
+                    break;
+                case "SM_Str":
+                    const num_set = new Set(num_list);
+                    const ar = [new Set([1,2,3,4]),new Set([2,3,4,5]),new Set([3,4,5,6])];
+                    for (let s of ar){
+                        if(s.isSubsetOf(num_set))
+                            subtotal = 30;
+                    }
+                    lower += subtotal;
+                    break;
+                case "LG_Str":
+                    if (num_list.toString() == "1,2,3,4,5" || num_list.toString() == "2,3,4,5,6")
+                        subtotal = 40;
+                    lower += subtotal;
+                    break;
+                case "Chance":
+                    for (let i of num_list)
+                        subtotal += i;
+                    lower += subtotal;
+                    break;
+                case "Yahtzee":
+                    if (Object.keys(num_dict).length == 1)
+                        subtotal = 50;
+                    lower += subtotal;
                     break;
             }
 
@@ -195,8 +245,19 @@
             document.getElementById(cat + "_score").innerHTML = subtotal;
             document.getElementById("upper_score").innerHTML = "Upper Score: " + upper;
             document.getElementById("lower_score").innerHTML = "Lower Score: " + lower;
+            let bonus = "Bonus: "
+            if (upper >= 63){
+                bonus += 35;
+                score += 35;
+            }
+            if (yahtzee_num > 1){
+                bonus += " | " + ((yahtzee_num-1)*100);
+                score += (yahtzee_num-1)*100;
+            }
+            if (upper < 63 && yahtzee_num < 2)
+                bonus += 0;
+            document.getElementById("bonus").innerHTML = bonus;
             document.getElementById("total").innerHTML = "Total: " + score;
-
 
             for (let s of score_list)
                 document.getElementById(s).disabled = true;
@@ -204,11 +265,14 @@
                     h.disabled = false;
             }
             document.getElementById("roll_butt").disabled = false;
+            document.getElementById("roll_butt").innerHTML = "Roll"
             score_list.splice(score_list.indexOf(cat),1);
-            console.log(score_list);
             rolls = 0;
-            console.log(rolls);
-
+            if (score_list.length == 0){
+                document.getElementById("roll_butt").disabled = true;
+                alert("Game over! Thanks for playing! Refresh to start a new game.")
+            }
+                
         }
 
         function diehold(die_box) {
