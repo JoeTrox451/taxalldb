@@ -39,6 +39,12 @@
             text-align: center; 
             display: inline-block;
         }
+        .die_img{
+            width: 50;
+            height: 50;
+            padding-bottom: 10;
+            padding-top: 10;
+        }
         .score_num{
             width: 600;
             height: 40;
@@ -92,6 +98,8 @@
 </head>
 <body class="body">
     <script>
+        /*const yaml = require('js-yaml');
+        const fs = require('fs');*/
         class Die {
             constructor(label) {
                 this.held = false;
@@ -101,8 +109,7 @@
             }
             roll(){
                 this.result = (Math.floor(Math.random()*6)+1);
-                document.getElementById(this.label).innerHTML = this.result;
-                console.log(this.result)
+                document.getElementById(this.label).src = this.result + ".png";
             }
             reset(){
                 this.roll();
@@ -265,7 +272,7 @@
             } else {
                 bonus += 0
             }
-            if (yahtzee_num > 1){
+            if (yahtzee_num > 1 && document.getElementById("Yahtzee").innerHTML == "50"){
                 bonus += " | " + ((yahtzee_num-1)*100);
                 score += (yahtzee_num-1)*100;
             }
@@ -281,10 +288,16 @@
             score_list.splice(score_list.indexOf(cat),1);
             rolls = 0;
             if (score_list.length == 0){
-                document.getElementById("roll_butt").disabled = true;
-                document.getElementById("endgame").innerHTML = "Game Over - Thanks for playing! Refresh to start a new game."
+                end_game()
             }
                 
+        }
+
+        function end_game() {
+            document.getElementById("roll_butt").disabled = true;
+            document.getElementById("endgame").innerHTML = "Game Over - Thanks for playing! Refresh to start a new game."
+            /*var lead = yaml.load(fs.readFileSync('leaderboard.yaml','utf-8'));*/
+
         }
 
         function diehold(die_box) {
@@ -368,23 +381,23 @@
     </div>
     <div class="die_con">
         <div class="die_num" id="die_box_1">
-            <h2 id="die_num_1">1</h2>
+            <img id="die_num_1" src="1.png" class="die_img">
             <button id="hold1" onclick="diehold('die_box_1')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_2">
-            <h2 id="die_num_2">1</h2>
+            <img id="die_num_2" src="1.png" class="die_img">
             <button id="hold2" onclick="diehold('die_box_2')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_3">
-            <h2 id="die_num_3">1</h2>
+            <img id="die_num_3" src="1.png" class="die_img">
             <button id="hold3" onclick="diehold('die_box_3')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_4">
-            <h2 id="die_num_4">1</h2>
+            <img id="die_num_4" src="1.png" class="die_img">
             <button id="hold4" onclick="diehold('die_box_4')" class="hold_butt" disabled>Hold</button>
         </div>
         <div class="die_num" id="die_box_5">
-            <h2 id="die_num_5">1</h2>
+            <img id="die_num_5" src="1.png" class="die_img">
             <button id="hold5" onclick="diehold('die_box_5')" class="hold_butt" disabled>Hold</button>
         </div>
     </div>
