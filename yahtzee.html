@@ -110,13 +110,13 @@
             roll(){
                 let i = 0;
                 const int_id = setInterval(() => {
-                    if (i >= 7){
+                    if (i >= 12){
                         clearInterval(int_id);
                         return;
                     }
                     this.innerRoll();
                     i++;
-                }, 150);                
+                }, 75);                
             }
             innerRoll(){
                 this.result = (Math.floor(Math.random()*6)+1);
