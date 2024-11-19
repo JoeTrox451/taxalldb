@@ -241,7 +241,7 @@
                     lower += subtotal;
                     break;
                 case "Full_House":
-                    if (Object.values(num_dict).includes(2) && Object.values(num_dict).includes(3))
+                    if ((Object.values(num_dict).includes(2) && Object.values(num_dict).includes(3)) || Object.keys(num_dict).length == 1)
                         subtotal = 25;
                     lower += subtotal;
                     break;
@@ -249,13 +249,13 @@
                     const num_set = new Set(num_list);
                     const ar = [new Set([1,2,3,4]),new Set([2,3,4,5]),new Set([3,4,5,6])];
                     for (let s of ar){
-                        if(s.isSubsetOf(num_set))
+                        if(s.isSubsetOf(num_set) || Object.keys(num_dict).length == 1)
                             subtotal = 30;
                     }
                     lower += subtotal;
                     break;
                 case "LG_Str":
-                    if (num_list.toString() == "1,2,3,4,5" || num_list.toString() == "2,3,4,5,6")
+                    if ((num_list.toString() == "1,2,3,4,5" || num_list.toString() == "2,3,4,5,6") || Object.keys(num_dict).length == 1)
                         subtotal = 40;
                     lower += subtotal;
                     break;
@@ -282,7 +282,7 @@
             } else {
                 bonus += 0
             }
-            if (yahtzee_num > 1 && document.getElementById("Yahtzee").innerHTML == "50"){
+            if (yahtzee_num > 1 && document.getElementById("Yahtzee_score").innerHTML == "50"){
                 bonus += " | " + ((yahtzee_num-1)*100);
                 score += (yahtzee_num-1)*100;
             }
