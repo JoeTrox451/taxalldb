@@ -108,6 +108,17 @@
                 this.label = label;
             }
             roll(){
+                let i = 0;
+                const int_id = setInterval(() => {
+                    if (i >= 7){
+                        clearInterval(int_id);
+                        return;
+                    }
+                    this.innerRoll();
+                    i++;
+                }, 150);                
+            }
+            innerRoll(){
                 this.result = (Math.floor(Math.random()*6)+1);
                 document.getElementById(this.label).src = this.result + ".png";
             }
@@ -130,14 +141,13 @@
         var yahtzee_num = 0;
         var rolls = 0;
 
-
         function roll(){
             for (let d of Dice) {
                 if (rolls == 0){
                     d.reset()
                 } else {
                     if (!d.held)
-                       d.roll()
+                        d.roll()
                 }
             }
             rolls++;
